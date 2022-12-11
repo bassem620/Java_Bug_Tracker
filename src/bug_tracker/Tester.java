@@ -1,5 +1,7 @@
 package bug_tracker;
 
+import java.util.ArrayList;
+
 public final class Tester extends User implements Tester_Interface{
 
     public Tester() {
@@ -10,17 +12,12 @@ public final class Tester extends User implements Tester_Interface{
     }
 
     @Override
-    public void createBug(String name, String type, String priority, String level, String status, String assignedTo, String projectName) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void updateBug(String name, String type, String level, String status, String assignedTo, String projectName) {
+    public void createBug(String name, String type, String priority, String level, String status, String projectName) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void deleteBug(int id) {
+    public void updateBug(String name, String type, String priority, String level, String status, String projectName) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -30,8 +27,14 @@ public final class Tester extends User implements Tester_Interface{
     }
 
     @Override
+    public void deleteBug(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
     public ArrayList<Email> viewEmails() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    } 
+    }
+ 
     
 }

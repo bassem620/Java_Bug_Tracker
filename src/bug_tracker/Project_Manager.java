@@ -7,8 +7,8 @@ public final class Project_Manager extends User implements Project_Manager_Inter
     public Project_Manager() {
     }
 
-    public Project_Manager(String username, String password, String firstName, String lastName, String role) {
-        super(username, password, firstName, lastName, role);
+    public Project_Manager(String username, String password, String firstName, String lastName) {
+        super(username, password, firstName, lastName, "Project Manager");
     }
 
     @Override

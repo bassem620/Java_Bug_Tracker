@@ -3,6 +3,7 @@ package bug_tracker;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,7 +12,7 @@ public final class Email {
     String sender;
     String to;
     String message;
-    String createdAt;
+    Timestamp createdAt;
 
     public Email() {
     }
@@ -21,7 +22,8 @@ public final class Email {
         this.to = to;
         this.message = message;
         Date d = new Date();
-        this.createdAt = d + " ";
+        Timestamp SQLDate = new Timestamp(d.getTime());
+        this.createdAt = SQLDate;
     }
     
     public static ArrayList<Email> myEmails(int username) {
@@ -36,7 +38,7 @@ public final class Email {
                 e.setId(rs.getInt("id"));
                 e.setSender(rs.getString("sender"));
                 e.setMessage(rs.getString("message"));
-                e.setCreatedAt(rs.getString("createdAt"));
+                e.setCreatedAt(rs.getTimestamp("createdAt"));
                 list.add(e); 
             }
         } catch (Exception e) {
@@ -78,11 +80,11 @@ public final class Email {
         this.message = message;
     }
 
-    public String getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
     

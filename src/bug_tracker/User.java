@@ -1,5 +1,6 @@
 package bug_tracker;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class User {
@@ -9,7 +10,7 @@ public class User {
     protected String firstName;
     protected String lastName;
     protected String role;
-    protected String createdAt;
+    protected Timestamp createdAt;
 
     public User() {
     }
@@ -21,7 +22,8 @@ public class User {
         this.lastName = lastName;
         this.role = role;
         Date d = new Date();
-        this.createdAt = d + " ";
+        Timestamp SQLDate = new Timestamp(d.getTime());
+        this.createdAt = SQLDate;
     }
     
     public final void displayUserData() {
@@ -72,11 +74,11 @@ public class User {
         this.role = role;
     }
 
-    public final String getCreatedAt() {
+    public final Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public final void setCreatedAt(String createdAt) {
+    public final void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
  

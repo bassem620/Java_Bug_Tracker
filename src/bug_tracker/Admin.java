@@ -3,6 +3,7 @@ package bug_tracker;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +20,7 @@ public final class Admin extends User implements Admin_Interface{
     public void addUser(String username, String password, String firstName, String lastName, String role) {
         try {
             Date d = new Date();
-            String ds = d.toString();   
+            Timestamp SQLDate = new Timestamp(d.getTime());  
             Connection con =  connectDB.getConnection();
             String sql = "INSERT INTO employee (username, password, firstName, lastName, role, createdAt) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -28,7 +29,7 @@ public final class Admin extends User implements Admin_Interface{
             ps.setString(3, firstName);
             ps.setString(4, lastName);
             ps.setString(5, role);
-            ps.setString(6, ds);
+            ps.setTimestamp(6, SQLDate);
             ps.executeUpdate();
             //JOptionPane.showMessageDialog(null, "New user added!");
         } catch (Exception e) {
@@ -92,7 +93,7 @@ public final class Admin extends User implements Admin_Interface{
             u.setFirstName(rs.getString("firstName"));
             u.setLastName(rs.getString("lastName"));
             u.setRole(rs.getString("role"));
-            u.setCreatedAt(rs.getString("createdAt"));
+            u.setCreatedAt(rs.getTimestamp("createdAt"));
         } catch (Exception e) {
             e.printStackTrace();
             //JOptionPane.showMessageDialog(null, "Error");
@@ -118,7 +119,7 @@ public final class Admin extends User implements Admin_Interface{
                 u.setFirstName(rs.getString("firstName"));
                 u.setLastName(rs.getString("lastName"));
                 u.setRole(rs.getString("role"));
-                u.setCreatedAt(rs.getString("createdAt"));
+                u.setCreatedAt(rs.getTimestamp("createdAt"));
                 list.add(u); 
             }
         } catch (Exception e) {
@@ -146,7 +147,7 @@ public final class Admin extends User implements Admin_Interface{
                 u.setFirstName(rs.getString("firstName"));
                 u.setLastName(rs.getString("lastName"));
                 u.setRole(rs.getString("role"));
-                u.setCreatedAt(rs.getString("createdAt"));
+                u.setCreatedAt(rs.getTimestamp("createdAt"));
                 list.add(u); 
             }
         } catch (Exception e) {
@@ -174,7 +175,7 @@ public final class Admin extends User implements Admin_Interface{
                 u.setFirstName(rs.getString("firstName"));
                 u.setLastName(rs.getString("lastName"));
                 u.setRole(rs.getString("role"));
-                u.setCreatedAt(rs.getString("createdAt"));
+                u.setCreatedAt(rs.getTimestamp("createdAt"));
                 list.add(u); 
             }
         } catch (Exception e) {

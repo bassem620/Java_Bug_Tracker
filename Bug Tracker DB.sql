@@ -23,7 +23,7 @@ create table employee(
 	firstName nvarchar(15) NOT NULL,
 	lastName nvarchar(15) NOT NULL,
 	[role] nvarchar(15) Check([role] in ('Admin','Project Manager', 'Developer', 'Tester')) NOT NULL,
-	createdAt nvarchar(50) NOT NULL,
+	createdAt DateTime NOT NULL,
 	PRIMARY KEY(id, username),
 )
 
@@ -32,7 +32,7 @@ create table email(
 	sender nvarchar(50) NOT NULL,
 	[to] nvarchar(50) NOT NULL,
 	[message] nvarchar(200) NOT NULL,
-	createdAt nvarchar(50) NOT NULL,
+	createdAt DateTime NOT NULL,
 )
 
 create table project(
@@ -40,7 +40,7 @@ create table project(
 	[name] nvarchar(30) unique,
 	[description] nvarchar(200),
 	createdBy nvarchar(20) foreign key references employee(username) on update cascade NOT NULL,
-	createdAt nvarchar(50) NOT NULL,
+	createdAt DateTime NOT NULL,
 	PRIMARY KEY (id, [name])
 )
 
@@ -56,8 +56,8 @@ create table bug(
 	[status] nvarchar(10) check([status] in ('Open','Assigned','Fix', 'Re-open', 'Closed')) NOT NULL,
 	createdBy nvarchar(20) foreign key references employee(username) on update cascade,
 	assignedTo nvarchar(20) foreign key references employee(username),
-	createdAt nvarchar(50) NOT NULL,
-	finishedAt nvarchar(50),
+	createdAt DateTime NOT NULL,
+	finishedAt DateTime,
 	primary key(id, [name])
 )
 

@@ -1,5 +1,6 @@
 package bug_tracker;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public final class Project {
@@ -7,7 +8,7 @@ public final class Project {
     String name;
     String desc;
     String createdBy;
-    String createdAt;
+    Timestamp createdAt;
 
     public Project() {
     }
@@ -17,7 +18,8 @@ public final class Project {
         this.desc = desc;
         this.createdBy = createdBy;
         Date d = new Date();
-        this.createdAt = d + " ";
+        Timestamp SQLDate = new Timestamp(d.getTime());
+        this.createdAt = SQLDate;
     }
 
     public int getId() {
@@ -50,6 +52,14 @@ public final class Project {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
     
     

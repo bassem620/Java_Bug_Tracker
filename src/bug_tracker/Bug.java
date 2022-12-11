@@ -3,6 +3,7 @@ package bug_tracker;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,8 +17,8 @@ public final class Bug {
     protected String createdBy;
     protected String assignedTo;
     protected String projectName;
-    protected String createdAt;
-    protected String finishedAt;
+    protected Timestamp createdAt;
+    protected Timestamp finishedAt;
 
     public Bug() {
     }
@@ -32,12 +33,12 @@ public final class Bug {
         this.assignedTo = assignedTo;
         this.projectName = projectName;
         Date d = new Date();
-        this.createdAt = d + "";
-        this.finishedAt = "Not Yet";
+        Timestamp SQLDate = new Timestamp(d.getTime());
+        this.createdAt = SQLDate;
     }
     
     public final static ArrayList<Bug> getAllBugs() { 
-        ArrayList<Bug> list = new ArrayList<Bug>();
+        ArrayList<Bug> list = new ArrayList<>();
         try {
             Connection con = connectDB.getConnection();
             String sql = "SELECT * FROM bug";
@@ -54,8 +55,8 @@ public final class Bug {
                 b.setCreatedBy(rs.getString("createdBy"));
                 b.setAssignedTo(rs.getString("assignedTo"));
                 b.setProjectName(rs.getString("project_name"));
-                b.setCreatedAt(rs.getString("createdAt"));
-                b.setFinishedAt(rs.getString("finishedAt"));
+                b.setCreatedAt(rs.getTimestamp("createdAt"));
+                b.setFinishedAt(rs.getTimestamp("finishedAt"));
                 list.add(b); 
             }
         } catch (Exception e) {
@@ -147,19 +148,19 @@ public final class Bug {
         this.projectName = projectName;
     }
 
-    public String getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
-    public String getFinishedAt() {
+    public Timestamp getFinishedAt() {
         return finishedAt;
     }
 
-    public void setFinishedAt(String finishedAt) {
+    public void setFinishedAt(Timestamp finishedAt) {
         this.finishedAt = finishedAt;
     }
     
