@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public final class Bug {
     protected int id;
@@ -60,8 +61,8 @@ public final class Bug {
                 list.add(b); 
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            //JOptionPane.showMessageDialog(null, "Error");
+            System.out.println("ERROR: " + e);
+            JOptionPane.showMessageDialog(null, "Couldn't fetch bugs data!");
         }
         return list;
     }

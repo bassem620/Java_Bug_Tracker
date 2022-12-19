@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Bug_tracker">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/Bug_tracker.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

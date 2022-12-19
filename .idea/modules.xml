@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Bug_tracker.iml" filepath="$PROJECT_DIR$/Bug_tracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqljdbc_11.2.1.0_enu/sqljdbc_11.2.1.0_enu.iml" filepath="$PROJECT_DIR$/sqljdbc_11.2.1.0_enu/sqljdbc_11.2.1.0_enu.iml" />
+    </modules>
+  </component>
+</project>

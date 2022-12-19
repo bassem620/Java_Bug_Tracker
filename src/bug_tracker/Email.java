@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public final class Email {
     int id;
@@ -42,8 +43,8 @@ public final class Email {
                 list.add(e); 
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            //JOptionPane.showMessageDialog(null, "Error");
+            System.out.println("ERROR: " + e);
+            JOptionPane.showMessageDialog(null, "Couldn't fetch emails data!");
         }
         return list;      
     }

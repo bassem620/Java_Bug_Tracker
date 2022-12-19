@@ -14,7 +14,7 @@ public class connectDB {
             System.out.println("Connection Established");
         } catch (SQLException e) {
             System.out.println("Connection Failed");
-            e.printStackTrace();
+            System.out.println("ERROR: " + e);
         }
         return con;
     }
