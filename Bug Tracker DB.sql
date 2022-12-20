@@ -53,7 +53,7 @@ create table bug(
 	[priority] nvarchar(4) check([priority] in ('Low', 'Med', 'High')) NOT NULL,
 	[level] nvarchar(2) check([level] in ('L1', 'L2', 'L3')) NOT NULL,
 	project_name nvarchar(30) foreign key references project([name]) NOT NULL,
-	[status] nvarchar(10) check([status] in ('Open','Assigned','Fix', 'Re-open', 'Closed')) NOT NULL,
+	[status] nvarchar(10) check([status] in ('Open','Fix', 'Closed')) NOT NULL,
 	createdBy nvarchar(20) foreign key references employee(username) on update cascade,
 	assignedTo nvarchar(20) foreign key references employee(username),
 	createdAt DateTime NOT NULL,

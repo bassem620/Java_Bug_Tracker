@@ -80,14 +80,14 @@ public final class Project_Manager extends User implements Project_Manager_Inter
         try {
             Connection con = connectDB.getConnection();
             String sql;
-            sql = "select employee.id,username, firstName+lastName as dev_name, bug.name as bug_name,  project_name,status, bug.createdAt ,finishedAt from employee inner join bug on createdBy = employee.username";
+            sql = "select employee.id,username, firstName+lastName as tester_name, bug.name as bug_name,  project_name,status, bug.createdAt ,finishedAt from employee inner join bug on createdBy = employee.username";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
               while(rs.next()){
                 Perf d = new Perf();
                 d.setId(rs.getInt("id"));
                 d.setUsername(rs.getString("username"));
-                d.setName(rs.getString("dev_name"));
+                d.setName(rs.getString("tester_name"));
                 d.setBugName(rs.getString("bug_name"));
                 d.setProjectName(rs.getString("project_name"));
                 d.setStatus(rs.getString("status"));
@@ -102,7 +102,7 @@ public final class Project_Manager extends User implements Project_Manager_Inter
     }
 
     @Override
-     public void createProject(String name, String desc, String createdBy) {
+     public void createProject(String name, String desc) {
        try {  
             Date d = new Date();
             Timestamp SQLDate = new Timestamp(d.getTime());    
@@ -111,7 +111,7 @@ public final class Project_Manager extends User implements Project_Manager_Inter
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, name);
             ps.setString(2, desc);
-            ps.setString(3, createdBy);
+            ps.setString(3, this.username);
             ps.setTimestamp(4, SQLDate);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Project added successfully");
