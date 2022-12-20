@@ -20,7 +20,7 @@ public final class Developer extends User implements Developer_Interface{
         ArrayList<Bug> list = new ArrayList<>();
         try {
             Connection con = connectDB.getConnection();
-            String sql = "SELECT * FROM bug where assignedTo="+ this.username;
+            String sql = "SELECT * FROM bug where assignedTo=\'"+ this.username+"\'";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -40,7 +40,7 @@ public final class Developer extends User implements Developer_Interface{
             }
         } catch (Exception e) {
             System.out.println("ERROR: " + e);
-            JOptionPane.showMessageDialog(null, "Couldn't fetch data!");
+            JOptionPane.showMessageDialog(null, "Couldn't fetch assigned bugs data!");
         }
         return list;
     }
@@ -50,9 +50,8 @@ public final class Developer extends User implements Developer_Interface{
     public void editBugStatus(int id, String status) {
        try {  
             Connection con = connectDB.getConnection();
-            String sql = "UPDATE bug status SET status=? WHERE id=" + id;
+            String sql = "UPDATE bug SET status=\'" + status + "\' WHERE id=" + id;
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, status);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Bug status updated");
         } catch (Exception e) {
@@ -67,7 +66,7 @@ public final class Developer extends User implements Developer_Interface{
         ArrayList<Email> list = new ArrayList<>();
         try {
             Connection con = connectDB.getConnection();
-            String sql = "SELECT * FROM Email where assignedTo="+ this.username;
+            String sql = "SELECT * FROM Email where [to]=\'"+ this.username + "\'";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -81,7 +80,7 @@ public final class Developer extends User implements Developer_Interface{
             }
         } catch (Exception e) {
             System.out.println("ERROR: " + e);
-            JOptionPane.showMessageDialog(null, "Couldn't fetch data!");
+            JOptionPane.showMessageDialog(null, "Couldn't fetch emails data!");
         }
         return list;
     }
