@@ -23,7 +23,7 @@ public final class Tester extends User implements Tester_Interface{
             Date d = new Date();
             Timestamp SQLDate = new Timestamp(d.getTime());  
             Connection con =  connectDB.getConnection();
-            String sql = "INSERT INTO bug (name, type, priority, level, status, project_name, createdAt) VALUES (?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO bug (name, type, priority, level, status, project_name, createdAt, createdBy) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, name);
             ps.setString(2, type);
@@ -32,6 +32,7 @@ public final class Tester extends User implements Tester_Interface{
             ps.setString(5, status);
             ps.setString(6, projectName);
             ps.setTimestamp(7, SQLDate);
+            ps.setString(8, this.username);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "New bug created");
         } catch (Exception e) {
@@ -62,6 +63,24 @@ public final class Tester extends User implements Tester_Interface{
 
     @Override
     public void assignBug(int bugID, String DevUsername, String message) {
+        // Check if username exist
+        try{
+            Connection con =  connectDB.getConnection();
+            String sql = "select * from employee where username=\'" + DevUsername + "\'";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            // check if username is a developer
+            if(!rs.getString("role").equals("Developer")){
+                JOptionPane.showMessageDialog(null, "This username is not a developer!");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e);
+            JOptionPane.showMessageDialog(null, "Couldn't find user!");
+            return; // to ignore the rest of the function
+        }
+        // Try to assign bug to developer
         try {
             Connection con =  connectDB.getConnection();
             String sql = "UPDATE bug set assignedTo=? where id=" + bugID;
@@ -72,22 +91,24 @@ public final class Tester extends User implements Tester_Interface{
         } catch (Exception e) {
             System.out.println("ERROR: " + e);
             JOptionPane.showMessageDialog(null, "Couldn't update bug data");
+            return; // to ignore the rest of the function
         }
+        // Try to send email to developer
         try{
             Date d = new Date();
             Timestamp SQLDate = new Timestamp(d.getTime());  
             Connection con =  connectDB.getConnection();
-            String sql = "INSERT INTO email(sender, to, message, createdAt) values(?,?,?,?)";
+            String sql = "INSERT INTO email(sender, [to], message, createdAt) values(?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, this.username);
             ps.setString(2, DevUsername);
             ps.setString(3, message);
             ps.setTimestamp(4, SQLDate);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Bug id:"+ id +  " is assigned to:" + DevUsername);
+            JOptionPane.showMessageDialog(null, "Email is sent to:" + DevUsername);
         } catch (Exception e) {
             System.out.println("ERROR: " + e);
-            JOptionPane.showMessageDialog(null, "Couldn't send email to developer");
+            JOptionPane.showMessageDialog(null, "Couldn't send email");
         }
     }
 
