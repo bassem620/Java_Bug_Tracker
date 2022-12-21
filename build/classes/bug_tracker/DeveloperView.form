@@ -214,11 +214,9 @@
     <Component class="javax.swing.JComboBox" name="newStatusText">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="2">
             <StringItem index="0" value="--"/>
-            <StringItem index="1" value="Open"/>
-            <StringItem index="2" value="Fix"/>
-            <StringItem index="3" value="Closed"/>
+            <StringItem index="1" value="Closed"/>
           </StringArray>
         </Property>
       </Properties>

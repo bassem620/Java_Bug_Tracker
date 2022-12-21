@@ -112,7 +112,7 @@ public final class Admin extends User implements Admin_Interface{
         ArrayList<User> list = new ArrayList<>();
         try {
             Connection con = connectDB.getConnection();
-            String sql = "SELECT * FROM employee WHERE username LIKE \'%" + username +"\' ";
+            String sql = "SELECT * FROM employee WHERE username LIKE \'" + username +"%\' ";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){

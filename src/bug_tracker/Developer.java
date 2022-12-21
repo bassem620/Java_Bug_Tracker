@@ -3,7 +3,9 @@ package bug_tracker;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 public final class Developer extends User implements Developer_Interface{
@@ -49,14 +51,44 @@ public final class Developer extends User implements Developer_Interface{
     @Override
     public void editBugStatus(int id, String status) {
        try {  
+            Date d = new Date();
+            Timestamp SQLDate = new Timestamp(d.getTime());
             Connection con = connectDB.getConnection();
-            String sql = "UPDATE bug SET status=\'" + status + "\' WHERE id=" + id;
+            String sql = "UPDATE bug SET status=\'" + status + "\', finishedAt=? WHERE id=" + id;
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setTimestamp(1, SQLDate);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Bug status updated");
         } catch (Exception e) {
             System.out.println("ERROR: " + e);
             JOptionPane.showMessageDialog(null, "Couldn't update bug status");
+            return;
+        }
+        try{
+            Date d = new Date();
+            Timestamp SQLDate = new Timestamp(d.getTime()); 
+            
+            Connection con =  connectDB.getConnection();
+            String sql = "select createdBy from bug where id=" + id;
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            String testerUsername = rs.getString("createdBy");
+            
+            con =  connectDB.getConnection();
+            String sql2 = "INSERT INTO email(sender, [to], message, createdAt) values(?,?,?,?)";
+            ps = con.prepareStatement(sql2);
+            String message = "Bug ID:" + id + " is fixed.";
+                        
+            ps.setString(1, this.username);
+            ps.setString(2, testerUsername);
+            ps.setString(3, message);
+            ps.setTimestamp(4, SQLDate);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Email is sent to:" + testerUsername);
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e);
+            JOptionPane.showMessageDialog(null, "Couldn't send email");
         }
     }
         

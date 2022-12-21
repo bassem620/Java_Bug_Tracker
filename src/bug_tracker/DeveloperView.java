@@ -152,7 +152,7 @@ public class DeveloperView extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setText("New Status:");
 
-        newStatusText.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Open", "Fix", "Closed" }));
+        newStatusText.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Closed" }));
         newStatusText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newStatusTextActionPerformed(evt);
@@ -327,7 +327,5 @@ public class DeveloperView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JComboBox<String> newStatusText;
-    private javax.swing.JComboBox<String> statusText;
-    private javax.swing.JComboBox<String> statusText1;
     // End of variables declaration//GEN-END:variables
 }
